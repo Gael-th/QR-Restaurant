@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Restaurante</title>
+  <link rel="icon" href="imagens/Logo.png" type="image/x-icon">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #000000;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #0000008c;
+      color: #ac0505;
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 2px solid #9e2020;
+    }
+
+    .container {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(1, 1fr); /* 2 colunas */
+      gap: 2rem;
+    }
+
+    canvas {
+      background: #c2c2c2;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      max-width: 50%;
+    }
+
+    /* Faz os últimos 3 gráficos ocuparem toda a largura (2 colunas) */
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .search-bar,
+    .filtro-faturamento {
+      grid-column: 1 / -1; /* largura total */
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .search-bar input,
+    .filtro-faturamento select {
+      flex: 1;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #3f3f3f;
+      background-color: #505050;
+      color: #fff;
+      min-width: 200px;
+    }
+
+    .search-bar button {
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      border: none;
+      background-color: #a52424;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .alert {
+      background: #d83838;
+      color: #ffffff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 5px solid #ff5252;
+      border-radius: 5px;
+    }
+
+    /* Responsividade para telas menores */
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr; /* 1 coluna no celular */
+        padding: 1rem;
+      }
+
+      .search-bar input,
+      .filtro-faturamento select {
+        min-width: 100%;
+      }
+
+      /* No mobile, full-width ocupa 1 coluna só, então sem mudança necessária */
+      .full-width {
+        grid-column: auto;
+      }
+    }
+
+    .delado{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 10px;
+    }
+
+    .btnout{
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #c53434;
+      border: none;
+    }
+
+    a{
+      text-decoration: none;
+      color: #121212;
+    }
+  </style>
+
+
+
+</head>
+<body>
+  <header>
+    <h1>Dashboard Restaurante</h1>
+  </header>
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Pesquisar produto...">
+      <button onclick="filtrarProduto()">Filtrar</button>
+    </div>
+    <div id="alertArea"></div>
+    <div class="filtro-faturamento">
+      <select id="filtroFaturamento" onchange="atualizarFaturamento()">
+        <option value="diario">Faturamento Diário</option>
+        <option value="semanal">Faturamento Semanal</option>
+        <option value="mensal" selected>Faturamento Mensal</option>
+      </select>
+    </div>
+    <div class="delado">
+    <canvas id="faturamentoChart"></canvas>
+    <canvas id="despesasChart"></canvas>
+    </div>
+    <div class="delado">
+    <canvas id="maisVendidosChart"></canvas>
+    <canvas id="menosVendidosChart"></canvas>
+    </div>
+    <div class="delado">
+    <canvas id="promocoesChart"></canvas>
+    <canvas id="estoqueChart"></canvas>
+    </div>
+    <canvas id="pieChart" style="max-width: 100%;"></canvas>
+    <button class="btnout"><a href="Index.html">Voltar</a></button>
+    
+  </div>
+
+  <script>
+    const ctxFaturamento = document.getElementById("faturamentoChart").getContext("2d");
+    const ctxDespesas = document.getElementById("despesasChart").getContext("2d");
+    const ctxMaisVendidos = document.getElementById("maisVendidosChart").getContext("2d");
+    const ctxMenosVendidos = document.getElementById("menosVendidosChart").getContext("2d");
+    const ctxPie = document.getElementById("pieChart").getContext("2d");
+    const ctxPromocoes = document.getElementById("promocoesChart").getContext("2d");
+    const ctxEstoque = document.getElementById("estoqueChart").getContext("2d");
+
+    const cores = {
+      texto: '#ffffff',
+      grade: '#444'
+    };
+
+    const configGrafico = {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [{
+          label: '',
+          data: [],
+          backgroundColor: '#03A9F4'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: { color: cores.texto }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: cores.texto },
+            grid: { color: cores.grade }
+          },
+          y: {
+            ticks: { color: cores.texto },
+            grid: { color: cores.grade }
+          }
+        }
+      }
+    };
+
+    const configDespesas = JSON.parse(JSON.stringify(configGrafico));
+    configDespesas.data.datasets[0].backgroundColor = '#f44336';
+    configDespesas.data.datasets[0].label = 'Despesas';
+
+    const faturamentoChart = new Chart(ctxFaturamento, configGrafico);
+    const despesasChart = new Chart(ctxDespesas, configDespesas);
+
+    const faturamentoData = {
+      diario: [{ label: 'Hoje', valor: 1200 }],
+      semanal: [
+        { label: 'Seg', valor: 1000 },
+        { label: 'Ter', valor: 1100 },
+        { label: 'Qua', valor: 950 },
+        { label: 'Qui', valor: 1300 },
+        { label: 'Sex', valor: 1700 },
+        { label: 'Sab', valor: 2000 },
+        { label: 'Dom', valor: 1500 }
+      ],
+      mensal: Array.from({ length: 30 }, (_, i) => ({ label: `${i+1}/04`, valor: Math.floor(Math.random() * 2000 + 800) }))
+    };
+
+    const despesasData = {
+      diario: [{ label: 'Hoje', valor: 700 }],
+      semanal: [
+        { label: 'Seg', valor: 400 },
+        { label: 'Ter', valor: 500 },
+        { label: 'Qua', valor: 450 },
+        { label: 'Qui', valor: 600 },
+        { label: 'Sex', valor: 900 },
+        { label: 'Sab', valor: 1000 },
+        { label: 'Dom', valor: 750 }
+      ],
+      mensal: Array.from({ length: 30 }, (_, i) => ({ label: `${i+1}/04`, valor: Math.floor(Math.random() * 1000 + 300) }))
+    };
+
+    const maisVendidosData = {
+      labels: ['Pizza', 'Hamburguer', 'Sushi', 'Frango', 'Salada'],
+      datasets: [{
+        label: 'Mais Vendidos',
+        data: [300, 150, 100, 200, 250],
+        backgroundColor: '#4CAF50'
+      }]
+    };
+
+    const menosVendidosData = {
+      labels: ['Pizza', 'Hamburguer', 'Sushi', 'Frango', 'Salada'],
+      datasets: [{
+        label: 'Menos Vendidos',
+        data: [50, 30, 10, 60, 40],
+        backgroundColor: '#f44336'
+      }]
+    };
+
+    const pieData = {
+      labels: ['Pizza', 'Hamburguer', 'Sushi', 'Bebida'],
+      datasets: [{
+        label: 'Distribuição de Vendas',
+        data: [500, 300, 100, 200],
+        backgroundColor: ['#FF9800', '#03A9F4', '#8BC34A', '#FFC107']
+      }]
+    };
+
+    const promocoesData = {
+      labels: ['Promoção 1', 'Promoção 2', 'Promoção 3'],
+      datasets: [{
+        label: 'Promoções/Parcerias',
+        data: [50, 35, 15],
+        backgroundColor: ['#8BC34A', '#FFC107', '#03A9F4']
+      }]
+    };
+
+    const estoqueData = {
+      labels: ['Pizza', 'Hamburguer', 'Salada', 'Sushi', 'Bebida', 'Sobremesa', 'Fruta', 'Frango', 'Carne', 'Macarrão'],
+      datasets: [{
+        label: 'Estoque',
+        data: [100, 150, 200, 50, 80, 30, 150, 90, 120, 70],
+        backgroundColor: '#FF9800'
+      }]
+    };
+
+    function atualizarGrafico(chart, dados, label) {
+      chart.data.labels = dados.map(d => d.label);
+      chart.data.datasets[0].data = dados.map(d => d.valor);
+      chart.data.datasets[0].label = label;
+      chart.update();
+    }
+
+    function atualizarFaturamento() {
+      const tipo = document.getElementById("filtroFaturamento").value;
+      atualizarGrafico(faturamentoChart, faturamentoData[tipo], `Faturamento (${tipo})`);
+      atualizarGrafico(despesasChart, despesasData[tipo], `Despesas (${tipo})`);
+    }
+
+    atualizarFaturamento();
+
+    function filtrarProduto() {
+      const input = document.getElementById("searchInput").value.toLowerCase().trim();
+      const alertArea = document.getElementById("alertArea");
+
+      if (input === "") {
+        alertArea.innerHTML = "";
+        return;
+      }
+
+      const encontrado = faturamentoData.mensal.find(d => d.label.toLowerCase().includes(input));
+      if (!encontrado) {
+        alertArea.innerHTML = `<div class='alert'>Nenhum produto encontrado para "<strong>${input}</strong>"</div>`;
+        return;
+      }
+
+      alertArea.innerHTML = "";
+    }
+
+    new Chart(ctxMaisVendidos, { type: 'bar', data: maisVendidosData });
+    new Chart(ctxMenosVendidos, { type: 'bar', data: menosVendidosData });
+    new Chart(ctxPie, { type: 'pie', data: pieData });
+    new Chart(ctxPromocoes, { type: 'bar', data: promocoesData });
+    new Chart(ctxEstoque, { type: 'bar', data: estoqueData });
+  </script>
+</body>
+</html>

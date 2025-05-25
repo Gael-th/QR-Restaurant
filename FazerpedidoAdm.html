@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área de Pedidos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .pedido-form, .recebimento-form, .relatorio {
+      margin-bottom: 40px;
+    }
+    input, textarea, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .item-list {
+      margin-bottom: 20px;
+    }
+    .item-list div {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .item-list input {
+      flex: 1;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    .status-confirmado {
+      color: green;
+      font-weight: bold;
+    }
+    .status-nao-confirmado {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Área de Pedidos</h1>
+
+    <div class="pedido-form">
+      <h2>Fazer Pedido</h2>
+      <div class="item-list" id="itemList">
+        <div>
+          <input type="text" placeholder="Produto" class="produto">
+          <input type="number" placeholder="Quantidade" class="quantidade">
+        </div>
+      </div>
+      <button onclick="adicionarItem()">Adicionar Produto</button>
+      <button onclick="fazerPedido()">Fazer Pedido</button>
+    </div>
+
+    <div class="recebimento-form">
+      <h2>Confirmar Recebimento</h2>
+      <select id="pedidoSelecionado">
+        <option value="">Selecione um pedido</option>
+      </select>
+      <div id="confirmacaoItens"></div>
+      <textarea id="observacoes" placeholder="Observações: faltou algo? Houve avaria?"></textarea>
+      <button onclick="confirmarRecebimento()">Confirmar Recebimento</button>
+    </div>
+
+    <div class="relatorio">
+      <h2>Relatórios</h2>
+      <button onclick="mostrarRelatorio()">Mostrar Relatório</button>
+      <div id="tabelaRelatorio"></div>
+    </div>
+  </div>
+
+  <script>
+    let pedidos = [];
+
+    function adicionarItem() {
+      const itemList = document.getElementById('itemList');
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <input type="text" placeholder="Produto" class="produto">
+        <input type="number" placeholder="Quantidade" class="quantidade">
+      `;
+      itemList.appendChild(div);
+    }
+
+    function fazerPedido() {
+      const produtos = document.querySelectorAll('.produto');
+      const quantidades = document.querySelectorAll('.quantidade');
+      let itens = [];
+
+      for (let i = 0; i < produtos.length; i++) {
+        if (produtos[i].value && quantidades[i].value) {
+          itens.push({
+            produto: produtos[i].value,
+            quantidade: parseInt(quantidades[i].value),
+            recebido: 0
+          });
+        }
+      }
+
+      const dataPedido = new Date().toLocaleDateString();
+      const pedido = {
+        id: pedidos.length,
+        dataPedido,
+        dataEntrega: null,
+        itens,
+        observacoes: '',
+        confirmado: false
+      };
+
+      pedidos.push(pedido);
+      atualizarPedidos();
+      alert('Pedido realizado com sucesso!');
+      document.getElementById('itemList').innerHTML = '<div><input type="text" placeholder="Produto" class="produto"><input type="number" placeholder="Quantidade" class="quantidade"></div>';
+    }
+
+    function atualizarPedidos() {
+      const select = document.getElementById('pedidoSelecionado');
+      select.innerHTML = '<option value="">Selecione um pedido</option>';
+      pedidos.forEach(pedido => {
+        const option = document.createElement('option');
+        option.value = pedido.id;
+        option.textContent = `Pedido #${pedido.id} - ${pedido.dataPedido}`;
+        select.appendChild(option);
+      });
+    }
+
+    document.getElementById('pedidoSelecionado').addEventListener('change', function () {
+      const pedido = pedidos.find(p => p.id == this.value);
+      const div = document.getElementById('confirmacaoItens');
+      div.innerHTML = '';
+      if (pedido) {
+        pedido.itens.forEach((item, index) => {
+          div.innerHTML += `
+            <div>
+              <label>${item.produto} (pedido: ${item.quantidade})</label>
+              <input type="number" placeholder="Qtd recebida" data-index="${index}" class="recebido">
+            </div>
+          `;
+        });
+      }
+    });
+
+    function confirmarRecebimento() {
+      const id = document.getElementById('pedidoSelecionado').value;
+      const pedido = pedidos.find(p => p.id == id);
+      const recebidos = document.querySelectorAll('.recebido');
+
+      recebidos.forEach(input => {
+        const index = input.dataset.index;
+        pedido.itens[index].recebido = parseInt(input.value);
+      });
+
+      pedido.dataEntrega = new Date().toLocaleDateString();
+      pedido.observacoes = document.getElementById('observacoes').value;
+      pedido.confirmado = true;
+
+      alert('Recebimento confirmado!');
+      document.getElementById('confirmacaoItens').innerHTML = '';
+      document.getElementById('observacoes').value = '';
+    }
+
+    function mostrarRelatorio() {
+      let html = '<table><tr><th>ID</th><th>Data Pedido</th><th>Data Entrega</th><th>Status</th><th>Diferenças</th><th>Avarias</th></tr>';
+      pedidos.forEach(p => {
+        let status = p.confirmado ? '<span class="status-confirmado">Confirmado</span>' : '<span class="status-nao-confirmado">Não Confirmado</span>';
+        let diferencas = p.itens.map(i => `${i.produto}: ${i.recebido - i.quantidade}`).join('<br>');
+        html += `<tr>
+          <td>#${p.id}</td>
+          <td>${p.dataPedido}</td>
+          <td>${p.dataEntrega || '-'}</td>
+          <td>${status}</td>
+          <td>${diferencas}</td>
+          <td>${p.observacoes || '-'}</td>
+        </tr>`;
+      });
+      html += '</table>';
+      document.getElementById('tabelaRelatorio').innerHTML = html;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu QR-Restaurant Por GKode</title>
+    <link rel="icon" href="imagens/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="LogoHome">
+            <img src="imagens/logo.png" alt="Logo">
+            <h2>QR<span>estaurant</span></h2>
+        </div>
+        <div class="LinkList">
+            <a href="Index.html">Home</a>
+            <a href="Sobre.html">Sobre</a>
+            <a href="Menu.html"  style="border-bottom: solid 3px #a80a0a;">Menu</a>
+            <a href="LoginAdm.html">Login adm</a>
+            <a href="MeuPedidoCliente.html">Meu pedido</a>
+            <!-- <a href="AdcionarProduto.html">Adcionar produto adm</a> -->
+            <!-- <a href="PedidoCliente.html">Pedidos cliente</a> -->
+            <!-- <a href="PedidosAdm.html">Area pedidos adm</a> -->
+            <!-- <a href="Graficos.html">Graficos adm</a> -->
+            <!-- <a href="Gestao.html">Gestao</a> -->
+        </div>
+    </header>
+
+  <main>
+    <!-- Pratos Principais -->
+    <section class="categoria">
+      <h2>🍛 Pratos Principais</h2>
+      <div class="cardapio">
+        <div class="item"><h3>Feijoada Completa</h3><p>Feijão preto, carnes defumadas, arroz, farofa, couve e laranja</p><span>R$ 42,00</span><button onclick="adicionarAoCarrinho('Feijoada Completa', 42)">Adicionar</button></div>
+        <div class="item"><h3>Moqueca de Peixe</h3><p>Peixe branco, pimentão, leite de coco, arroz e pirão</p><span>R$ 44,00</span><button onclick="adicionarAoCarrinho('Moqueca de Peixe', 44)">Adicionar</button></div>
+        <div class="item"><h3>Escondidinho de Carne Seca</h3><p>Purê de mandioca, carne seca, queijo gratinado</p><span>R$ 39,00</span><button onclick="adicionarAoCarrinho('Escondidinho de Carne Seca', 39)">Adicionar</button></div>
+        <div class="item"><h3>Strogonoff de Frango</h3><p>Frango ao creme, arroz e batata palha</p><span>R$ 36,00</span><button onclick="adicionarAoCarrinho('Strogonoff de Frango', 36)">Adicionar</button></div>
+        <div class="item"><h3>Bife à Parmegiana</h3><p>Bife empanado, molho de tomate, arroz e fritas</p><span>R$ 40,00</span><button onclick="adicionarAoCarrinho('Bife à Parmegiana', 40)">Adicionar</button></div>
+        <div class="item"><h3>Lasanha à Bolonhesa</h3><p>Massa, carne moída, queijo e molho vermelho</p><span>R$ 38,00</span><button onclick="adicionarAoCarrinho('Lasanha à Bolonhesa', 38)">Adicionar</button></div>
+        <div class="item"><h3>Filé de Frango Grelhado</h3><p>Com arroz integral, legumes e salada</p><span>R$ 34,00</span><button onclick="adicionarAoCarrinho('Filé de Frango Grelhado', 34)">Adicionar</button></div>
+        <div class="item"><h3>Costela no Bafo</h3><p>Costela assada, mandioca cozida e arroz</p><span>R$ 48,00</span><button onclick="adicionarAoCarrinho('Costela no Bafo', 48)">Adicionar</button></div>
+        <div class="item"><h3>Tilápia Grelhada</h3><p>Tilápia com legumes na manteiga</p><span>R$ 41,00</span><button onclick="adicionarAoCarrinho('Tilápia Grelhada', 41)">Adicionar</button></div>
+        <div class="item"><h3>Risoto de Camarão</h3><p>Arroz cremoso com camarões, ervas e parmesão</p><span>R$ 46,00</span><button onclick="adicionarAoCarrinho('Risoto de Camarão', 46)">Adicionar</button></div>
+      </div>
+    </section>
+
+    <!-- Sobremesas -->
+    <section class="categoria">
+      <h2>🍰 Sobremesas</h2>
+      <div class="cardapio">
+        <div class="item"><h3>Pudim de Leite</h3><p>Tradicional com calda de caramelo</p><span>R$ 12,00</span><button onclick="adicionarAoCarrinho('Pudim de Leite', 12)">Adicionar</button></div>
+        <div class="item"><h3>Brigadeiro de Colher</h3><p>Brigadeiro cremoso com granulado</p><span>R$ 10,00</span><button onclick="adicionarAoCarrinho('Brigadeiro de Colher', 10)">Adicionar</button></div>
+        <div class="item"><h3>Torta de Limão</h3><p>Massa crocante, mousse de limão e merengue</p><span>R$ 13,00</span><button onclick="adicionarAoCarrinho('Torta de Limão', 13)">Adicionar</button></div>
+        <div class="item"><h3>Mousse de Maracujá</h3><p>Leve e refrescante, com calda de maracujá</p><span>R$ 11,00</span><button onclick="adicionarAoCarrinho('Mousse de Maracujá', 11)">Adicionar</button></div>
+        <div class="item"><h3>Bolo de Chocolate</h3><p>Bolo caseiro com cobertura cremosa</p><span>R$ 14,00</span><button onclick="adicionarAoCarrinho('Bolo de Chocolate', 14)">Adicionar</button></div>
+      </div>
+    </section>
+
+    <!-- Bebidas Não Alcoólicas -->
+    <section class="categoria">
+      <h2>🧃 Bebidas Não Alcoólicas</h2>
+      <div class="cardapio">
+        <div class="item"><h3>Suco Natural</h3><p>Laranja, limão ou maracujá</p><span>R$ 7,00</span><button onclick="adicionarAoCarrinho('Suco Natural', 7)">Adicionar</button></div>
+        <div class="item"><h3>Refrigerante Lata</h3><p>Coca-Cola, Guaraná, Sprite</p><span>R$ 6,00</span><button onclick="adicionarAoCarrinho('Refrigerante Lata', 6)">Adicionar</button></div>
+        <div class="item"><h3>Água Mineral</h3><p>Com ou sem gás</p><span>R$ 4,00</span><button onclick="adicionarAoCarrinho('Água Mineral', 4)">Adicionar</button></div>
+        <div class="item"><h3>Chá Gelado</h3><p>Limão ou pêssego</p><span>R$ 5,00</span><button onclick="adicionarAoCarrinho('Chá Gelado', 5)">Adicionar</button></div>
+        <div class="item"><h3>Vitamina de Frutas</h3><p>Banana, morango ou mamão</p><span>R$ 9,00</span><button onclick="adicionarAoCarrinho('Vitamina de Frutas', 9)">Adicionar</button></div>
+      </div>
+    </section>
+
+    <!-- Bebidas Alcoólicas -->
+    <section class="categoria">
+      <h2>🍷 Bebidas Alcoólicas</h2>
+      <div class="cardapio">
+        <div class="item"><h3>Cerveja Long Neck</h3><p>Heineken, Budweiser, Stella</p><span>R$ 9,00</span><button onclick="adicionarAoCarrinho('Cerveja Long Neck', 9)">Adicionar</button></div>
+        <div class="item"><h3>Caipirinha</h3><p>Limão, cachaça e açúcar</p><span>R$ 15,00</span><button onclick="adicionarAoCarrinho('Caipirinha', 15)">Adicionar</button></div>
+        <div class="item"><h3>Vinho Taça</h3><p>Vinho tinto seco ou suave</p><span>R$ 16,00</span><button onclick="adicionarAoCarrinho('Vinho Taça', 16)">Adicionar</button></div>
+        <div class="item"><h3>Gin Tônica</h3><p>Gin, água tônica e limão</p><span>R$ 18,00</span><button onclick="adicionarAoCarrinho('Gin Tônica', 18)">Adicionar</button></div>
+        <div class="item"><h3>Whisky Dose</h3><p>Jack Daniel's ou Johnnie Walker</p><span>R$ 20,00</span><button onclick="adicionarAoCarrinho('Whisky Dose', 20)">Adicionar</button></div>
+      </div>
+    </section>
+
+    <!-- Carrinho -->
+    <section class="carrinho-container">
+      <h2>🛒 Carrinho</h2>
+      <ul id="carrinho"></ul>
+      <p>Total: R$ <span id="total">0.00</span></p>
+      <button id="finalizar">Finalizar Pedido</button>
+    </section>
+  </main>
+
+
+  <script>
+    const carrinho = [];
+let total = 0;
+
+function adicionarAoCarrinho(nome, preco) {
+  carrinho.push({ nome, preco });
+  total += preco;
+  atualizarCarrinho();
+}
+
+function atualizarCarrinho() {
+  const lista = document.getElementById('carrinho');
+  const totalSpan = document.getElementById('total');
+
+  lista.innerHTML = '';
+
+  carrinho.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.innerHTML = `${item.nome} - R$ ${item.preco.toFixed(2)} 
+      <button onclick="removerItem(${index})" style="margin-left:10px; background:red; color:white; border:none; padding:2px 6px; border-radius:4px;">x</button>`;
+    lista.appendChild(li);
+  });
+
+  totalSpan.textContent = total.toFixed(2);
+}
+
+function removerItem(index) {
+  total -= carrinho[index].preco;
+  carrinho.splice(index, 1);
+  atualizarCarrinho();
+}
+
+document.getElementById('finalizar').addEventListener('click', () => {
+  if (carrinho.length === 0) {
+    alert('Seu carrinho está vazio!');
+  } else {
+    window.location.href = 'ToPay.html';
+    carrinho.length = 0;
+    total = 0;
+    atualizarCarrinho();
+  }
+});
+
+  </script>
+
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #a3a3a3;
+  }
+  
+  header {
+    /* background-color: #ff4343; */
+    color: white;
+    text-align: center;
+    /* padding: 1rem; */
+  }
+  
+  .container {
+    display: flex;
+    margin-top: 30px;
+  }
+  
+  .sidebar {
+    width: 200px;
+    background-color: #333;
+    color: white;
+    padding: 2rem;
+  }
+  
+  .sidebar h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+  }
+  
+  .sidebar ul li {
+    margin: 1rem 0;
+  }
+  
+  .sidebar ul li a {
+    color: rgb(156, 45, 45);
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+  
+  main {
+    flex-grow: 1;
+    padding: 2rem;
+    margin-top: 70px;
+  }
+  
+  .categoria {
+    margin-bottom: 3rem;
+  }
+  
+  .categoria h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .cardapio {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .item {
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .item h3 {
+    margin-bottom: 0.5rem;
+    color: #000000;
+  }
+  
+  .item p {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .item span {
+    font-weight: bold;
+    color: #000000;
+  }
+  
+  button {
+    background-color: #5fc247;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #385e0d;
+  }
+  
+  .carrinho-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .carrinho-container ul {
+    list-style: none;
+    }
+    
+    footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    }
+  </style>
+
+    <footer class="FooterSameForAll">
+        <div class="logoFooter">
+            <img src="imagens/logo.png" alt="Logo">
+            <p>&copy; 2025 QRestaurant Todos os direitos reservados.</p>
+        </div>
+
+        <div class="SoParaAlinhar">
+            <div class="FicaRetoo">
+                <div>
+                    <p><strong>Contato:</strong></p>
+                    <p>Telefone: (11) 0002-8922</p>
+                    <p>Email: <a href="mailto:contato@qrestaurant.com">contato@qrestaurant.com</a></p>
+                </div>
+                <div>
+                    <p><strong>Localização:</strong></p>
+                    <address>
+                        Barra Funda, 123, Bairro Central, Sao paulo Sp, CEP 00000-000
+                    </address>
+                </div>
+            </div>
+            <div class="FicaRetoo">
+                <div>
+                    <p><strong>Criadores:</strong></p>
+                    <p>Desenvolvido por: Gabriel, Kaik, Davi, Vinicius, Gustavo e Rafhael</p>
+                </div>
+                <div>
+                    <p>Fique conectado conosco:</p>
+                    <a href="https://www.facebook.com/qrestaurant" target="_blank">Facebook</a>
+                    <a href="https://www.instagram.com/qrestaurant" target="_blank">Instagram</a>
+                    <a href="https://www.twitter.com/qrestaurant" target="_blank">Twitter</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

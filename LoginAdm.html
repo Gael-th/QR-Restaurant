@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Adm QR-Restaurant Por GKode</title>
+    <link rel="icon" href="imagens/Logo.png" type="image/x-icon">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+
+<body>
+    <header>
+        <div class="LogoHome">
+            <img src="imagens/logo.png" alt="Logo">
+            <h2>QR<span>estaurant</span></h2>
+        </div>
+        <div class="LinkList">
+            <a href="Index.html">Home</a>
+            <a href="Sobre.html">Sobre</a>
+            <a href="Menu.html">Menu</a>
+            <a href="LoginAdm.html" style="border-bottom: solid 3px #a80a0a;">Login adm</a>
+            <a href="MeuPedidoCliente.html">Meu pedido</a>
+            <!-- <a href="AdcionarProduto.html">Adcionar produto adm</a> -->
+            <!-- <a href="PedidoCliente.html">Pedidos cliente</a> -->
+            <!-- <a href="PedidosAdm.html">Area pedidos adm</a> -->
+            <!-- <a href="Graficos.html">Graficos adm</a> -->
+            <!-- <a href="Gestao.html">Gestao</a> -->
+        </div>
+    </header>
+
+
+
+        <style>
+            * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+}
+header {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    background-color: #fff; 
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.973); 
+    background-color: #0000008c;
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 25px;
+}
+.LogoHome span{
+    color: #a80a0a;
+}
+.LogoHome{
+    display: flex;
+    flex-direction: row;
+}
+header .LogoHome img {
+    max-width: 40px;
+    max-height: 40px;
+}
+header .LogoHome h2{
+    margin-top: 7px;
+    margin-left: 5px;
+}
+.LinkList a{
+    justify-content: space-between;
+    margin: 15px;
+    outline: none;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.LinkList{
+    margin-top: 10px;
+}
+     
+.main-login{
+    width: 100vw;
+    height: 100vh;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -100px;
+}
+.left-login{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.left-login-image{
+    width: 20vw;
+}
+
+.right-login{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card-login{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 30px;
+    background: #919090;
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px #000000;
+}
+.card-login > h1 {
+    color: #881b1b;
+    font-weight: 800;
+    margin: 0;
+}
+.textfield{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 10px 0px;
+}
+.textfield > input{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    background: #bebebe;
+    color: #fff;
+    font-size: 12pt;
+    box-shadow: 0px 10px 40px;
+    outline: none;
+    box-sizing: border-box;
+}
+.textfield > label{
+    color: #fff;
+    margin-bottom: 10px;
+}
+.textfield > input{
+    color: #919090; 
+}
+.btn-login{
+    width: 60%;
+    padding: 16px 0px;
+    margin: 25px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #881b1b;
+    background: #bebebe;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #000000;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    margin-left: 5%;
+}
+.FooterSameForAll{
+    background-color: rgb(0, 0, 0);
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    max-width: 100%;
+    margin-top: 50px;
+}
+.FooterSameForAll img{
+    max-width: 50px;
+}
+.SoParaAlinhar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 100%;
+    align-items: center;
+}
+.logoFooter{
+    margin: 20px;
+    margin-top: -40px;
+    margin-bottom:20px;
+}
+.logoFooter img{
+    margin-bottom: 10px;
+}
+.FicaRetoo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 30px;
+    min-width: 100%;
+    margin-left: -15px;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .LogoHome {
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    header .LogoHome h2 {
+        margin-top: 5px;
+        margin-left: 5px;
+        font-size: 18px;
+    }
+
+    .LinkList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .LinkList a {
+        margin: 8px 0;
+        font-size: 16px;
+    }
+}
+
+
+
+
+@media (max-width: 768px) {
+    .main-login {
+        flex-direction: column;
+        margin-left: 0;
+    }
+
+    .left-login {
+        width: 100vw;
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .left-login-image {
+        width: 50vw;
+        display: none;
+    }
+
+    .right-login {
+        width: 100vw;
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .card-login {
+        margin-top: 550px;
+        width: 80%;
+        padding: 20px;
+        margin-bottom: 350px;
+    }
+
+    .btn-login {
+        width: 100%;
+    }
+
+    a {
+        margin-left: 0;
+        text-align: center;
+        width: 100%;
+        display: block;
+        margin-top: 10px;
+    }
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="main-login">
+        <div class="left-login">
+          <img src="imagens/imagenMeninas.png" class="left-login-image">
+        </div>
+        <div class="right-login"></div>
+        <div class="card-login">
+            <h1>LOGIN</h1>
+            <div class="textfield">
+                <label for="usuario">Usuário</label>
+                <input type="text" name="usurio" placeholder="Usuário">
+            </div>
+            <div class="textfield">
+                <label for="usuario">Senha</label>
+                <input type="password" name="senha" placeholder="Senha">
+            </div>
+            <button class="btn-login"><a href="areaAdm.html">Login</a></button>
+        </div>
+    </div>
+
+
+
+
+
+    <footer class="FooterSameForAll">
+        <div class="logoFooter">
+            <img src="imagens/logo.png" alt="Logo">
+            <p>&copy; 2025 QRestaurant Todos os direitos reservados.</p>
+        </div>
+
+        <div class="SoParaAlinhar">
+            <div class="FicaRetoo">
+                <div>
+                    <p><strong>Contato:</strong></p>
+                    <p>Telefone: (11) 0002-8922</p>
+                    <p>Email: <a href="mailto:contato@qrestaurant.com">contato@qrestaurant.com</a></p>
+                </div>
+                <div>
+                    <p><strong>Localização:</strong></p>
+                    <address>
+                        Barra Funda, 123, Bairro Central, Sao paulo Sp, CEP 00000-000
+                    </address>
+                </div>
+            </div>
+            <div class="FicaRetoo">
+                <div>
+                    <p><strong>Criadores:</strong></p>
+                    <p>Desenvolvido por: Gabriel, Kaik, Davi, Vinicius, Gustavo e Rafhael</p>
+                </div>
+                <div>
+                    <p>Fique conectado conosco:</p>
+                    <a href="https://www.facebook.com/qrestaurant" target="_blank">Facebook</a>
+                    <a href="https://www.instagram.com/qrestaurant" target="_blank">Instagram</a>
+                    <a href="https://www.twitter.com/qrestaurant" target="_blank">Twitter</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

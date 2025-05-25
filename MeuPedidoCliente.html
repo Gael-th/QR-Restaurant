@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Pedido QR-Restaurant Por GKode</title>
+    <link rel="icon" href="imagens/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="LogoHome">
+            <img src="imagens/logo.png" alt="Logo">
+            <h2>QR<span>estaurant</span></h2>
+        </div>
+        <div class="LinkList">
+            <a href="Index.html">Home</a>
+            <a href="Sobre.html">Sobre</a>
+            <a href="Menu.html">Menu</a>
+            <a href="LoginAdm.html">Login adm</a>
+            <a href="MeuPedidoCliente.html"  style="border-bottom: solid 3px #a80a0a;">Meu pedido</a>
+            <!-- <a href="AdcionarProduto.html">Adcionar produto adm</a> -->
+            <!-- <a href="PedidoCliente.html">Pedidos cliente</a> -->
+            <!-- <a href="PedidosAdm.html">Area pedidos adm</a> -->
+            <!-- <a href="Graficos.html">Graficos adm</a> -->
+            <!-- <a href="Gestao.html">Gestao</a> -->
+        </div>
+    </header>
+
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .pedido-container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      margin-top: 200px;
+      margin-bottom: 200px;
+    }
+
+    .pedido-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pedido-info {
+      margin-top: 15px;
+    }
+
+    .tempo-status {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .tempo-bom {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .tempo-ruim {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-preparo {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .btn-adicionar {
+      background-color: #28a745;
+      color: #fff;
+      margin-top: 10px;
+    }
+
+    .preparo-texto {
+      margin-top: 10px;
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+    .pedido-container {
+        padding: 100px 20px;
+        margin-top: 300px;
+    }}
+  </style>
+</head>
+<body>
+
+<div class="pedido-container">
+  <div class="pedido-header">
+    <h2>Pedido #1234</h2>
+    <span id="tempo-estimado">Estimado: 15 min</span>
+  </div>
+
+  <div class="pedido-info">
+    <p>Itens: Pizza Margherita, Refrigerante</p>
+    <button class="btn btn-preparo" onclick="togglePreparo()">Ver modo de preparo</button>
+    <div class="preparo-texto" id="preparo-texto">
+      <p>1. Preparar a massa<br>2. Adicionar cobertura<br>3. Assar por 10 minutos</p>
+    </div>
+
+    <div id="contador" class="tempo-status">Calculando tempo...</div>
+
+    <button class="btn btn-adicionar" onclick="adicionarItem()">Adicionar algo à compra</button>
+  </div>
+</div>
+
+<script>
+  // Tempo estimado (em minutos)
+  const tempoEstimadoMin = 15;
+
+  // Horário do pedido (agora)
+  const horaPedido = new Date();
+
+  function atualizarContador() {
+    const agora = new Date();
+    const diffMin = Math.floor((agora - horaPedido) / 1000 / 60);
+
+    const contador = document.getElementById("contador");
+    if (diffMin <= tempoEstimadoMin) {
+      contador.textContent = `Em preparo há ${diffMin} minutos. Dentro do tempo estimado.`;
+      contador.className = "tempo-status tempo-bom";
+    } else {
+      contador.textContent = `Em preparo há ${diffMin} minutos. Ultrapassou o tempo estimado!`;
+      contador.className = "tempo-status tempo-ruim";
+    }
+  }
+
+  function togglePreparo() {
+    const texto = document.getElementById("preparo-texto");
+    texto.style.display = texto.style.display === "none" ? "block" : "none";
+  }
+
+  function adicionarItem() {
+    window.location.href = 'Menu.html';
+  }
+
+  // Atualizar a cada 30 segundos
+  atualizarContador();
+  setInterval(atualizarContador, 30000);
+</script>
+
+
+
+
+    <footer class="FooterSameForAll">
+        <div class="logoFooter">
+            <img src="imagens/logo.png" alt="Logo">
+            <p>&copy; 2025 QRestaurant Todos os direitos reservados.</p>
+        </div>
+
+        <div class="SoParaAlinhar">
+            <div class="FicaRetoo">
+                <div>
+                    <p><strong>Contato:</strong></p>
+                    <p>Telefone: (11) 0002-8922</p>
+                    <p>Email: <a href="mailto:contato@qrestaurant.com">contato@qrestaurant.com</a></p>
+                </div>
+                <div>
+                    <p><strong>Localização:</strong></p>
+                    <address>
+                        Barra Funda, 123, Bairro Central, Sao paulo Sp, CEP 00000-000
+                    </address>
+                </div>
+            </div>
+            <div class="FicaRetoo">
+                <div>
+                    <p><strong>Criadores:</strong></p>
+                    <p>Desenvolvido por: Gabriel, Kaik, Davi, Vinicius, Gustavo e Rafhael</p>
+                </div>
+                <div>
+                    <p>Fique conectado conosco:</p>
+                    <a href="https://www.facebook.com/qrestaurant" target="_blank">Facebook</a>
+                    <a href="https://www.instagram.com/qrestaurant" target="_blank">Instagram</a>
+                    <a href="https://www.twitter.com/qrestaurant" target="_blank">Twitter</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
