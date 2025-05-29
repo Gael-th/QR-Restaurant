@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Adm QR-Restaurant Por GKode</title>
+    <link rel="icon" href="imagens/Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="LogoHome">
+            <img src="imagens/logo.png" alt="Logo">
+            <h2>QR<span>estaurant</span></h2>
+        </div>
+        <div class="LinkList">
+            <a href="Index.html">Home</a>
+            <a href="Sobre.html">Sobre</a>
+            <a href="Menu.html"  style="border-bottom: solid 3px #a80a0a;">Menu</a>
+            <a href="LoginAdm.html">Login adm</a>
+            <a href="MeuPedidoCliente.html">Meu pedido</a>
+            
+        </div>
+    </header>
+<body>
+			<!---Pagina da conta-->
+
+	<div class="account-page">
+		<div class="container">
+			<div class="row">
+					<div class="form-container">
+						<div class="form-btn">
+							<span onclick="login()">Entrar</span>
+							<span onclick="register()">Cadastra</span>
+							<hr id="Indicator">
+						</div>
+						<form  id="LoginForm">
+							<input type="text" placeholder="Nome">
+							<input type="password" placeholder="Senha">
+							<button type="submit" class="btn"><a href="areaAdm.html">Entrar</a></button>
+							<a class="entrar">Recuperar a conta</a>
+						</form>
+						<form id="RegForm">
+							<input type="text" placeholder="Nome">
+							<input type="email" placeholder="Email">
+							<input type="password" placeholder="Senha">
+							<button type="submit" class="btn">Cadastre-se</button>
+						</form>
+					</div>
+			</div>
+		</div>
+	</div>
+
+    				<!----------rodape-------->
+	<footer class="FooterSameForAll">
+        <div class="logoFooter">
+            <img src="imagens/logo.png" alt="Logo">
+            <p>&copy; 2025 QRestaurant Todos os direitos reservados.</p>
+        </div>
+
+        <div class="SoParaAlinhar">
+            <div class="FicaRetoo">
+                <div>
+                    <p><strong>Contato:</strong></p>
+                    <p>Telefone: (11) 0002-8922</p>
+                    <p>Email: <a href="mailto:contato@qrestaurant.com">contato@qrestaurant.com</a></p>
+                </div>
+                <div>
+                    <p><strong>Localização:</strong></p>
+                    <address>
+                        Barra Funda, 123, Bairro Central, Sao paulo Sp, CEP 00000-000
+                    </address>
+                </div>
+            </div>
+            <div class="FicaRetoo">
+                <div>
+                    <p><strong>Criadores:</strong></p>
+                    <p>Desenvolvido por: Gabriel, Kaik, Davi, Vinicius, Gustavo, Rafhael, Laysla e Esther</p>
+                </div>
+                <div>
+                    <p>Fique conectado conosco:</p>
+                    <a href="https://www.facebook.com/qrestaurant" target="_blank">Facebook</a>
+                    <a href="https://www.instagram.com/qrestaurant" target="_blank">Instagram</a>
+                    <a href="https://www.twitter.com/qrestaurant" target="_blank">Twitter</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+	<!----------para alternar  o form---------->
+
+	<script>
+		
+		var LoginForm = document.getElementById("LoginForm");
+		var RegForm = document.getElementById("RegForm");
+		var Indicator = document.getElementById("Indicator");
+
+				function login() {
+			RegForm.style.transform = "translateX(300px)";
+			LoginForm.style.transform = "translateX(300px)";
+			Indicator.style.transform = "translateX(0px)";
+			
+			}
+
+			function register() {
+			RegForm.style.transform = "translateX(0px)";
+			LoginForm.style.transform = "translateX(0px)";
+			Indicator.style.transform = "translateX(100px)";
+		
+			}
+
+		
+	</script>
+
+    <style>
+                   /*login do cliente*/
+
+.account-page{
+	padding: 150px 0;
+	background: radial-gradient(#ffffff, #0f0f0f) ;	
+}
+.form-container{
+	background: #ffffff;
+	width: 300px;
+	height: 380px;
+	position: relative;
+	text-align: center;
+	padding: 20px 0;
+	margin: auto;
+	box-shadow: 0 0 20px 0px rgb(3, 3, 3);
+	overflow: hidden;
+}
+.form-container span{
+	font-weight: bold;
+	padding: 0 10px;
+	color: #000000;
+	cursor: pointer;
+	width: 100px;
+	display: inline-block;
+}
+.form-btn{
+	display: inline-block;
+}
+.form-container form{
+	max-width: 300px;
+	padding: 0 20px;
+	position: absolute;
+	top: 130px;
+	transition: transform 1s;
+}
+form input{
+	width: 100%;
+	height: 30px;
+	margin: 10px 0;
+	padding: 0 10px;
+	border: 1px solid #000000;
+
+}
+form .btn{
+	width: 100%;
+	border: none;
+	cursor: pointer;
+	margin: 15px 0;
+}
+.form .btn:focus{
+	outline:  none;
+}
+#LoginForm{
+	left: -300px;
+}
+#RegForm{
+	left: 0;
+}
+.form a{
+	font-size: 12px;
+}
+#Indicator{
+	width: 100px;
+	border: none;
+	background: #a80a0a;
+	height: 3px;
+	margin-top: 8px;
+	transform: translateX(100px);
+	transition: transform 1s;
+}
+.btn{
+	display: inline-block;
+	background: #a80a0a;
+	color: #f8f5f5;
+	padding: 8px 30px;
+	margin: 30px 0 30px 0;
+	border-radius: 30px;
+	transition: background 0.5s;
+	right: 200px; 
+}
+.btn:hover {
+  background: #2e2d2d;
+  transform: scale(1.05);
+}
+
+.qrestaurant {
+    display: block;
+    width: 400px;
+    position: relative;
+    left: 130px;  
+    top: 450px;    
+}
+
+a{
+    color: white;
+    margin-left: 5px;
+}
+    </style>
+	
+</body>
+</html>
